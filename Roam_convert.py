@@ -34,27 +34,28 @@ for name in filelist[:]:
     if 'export' not in name.lower() or '.zip' not in name:
         filelist.remove(name)
 
-zip_name=filelist[0]
+if len(filelist)>=1:
+    zip_name=filelist[0]
 
-# opening the zip file in READ mode 
-ext_path='./extract/'
-if not os.path.isdir(ext_path):
-    os.mkdir(ext_path)
-#clean the extract folder before we use it. 
-filelist_de=os.listdir(ext_path)
-for file in filelist_de:
-    os.remove(ext_path+file)
+    # opening the zip file in READ mode 
+    ext_path='./extract/'
+    if not os.path.isdir(ext_path):
+        os.mkdir(ext_path)
+        #clean the extract folder before we use it. 
+        filelist_de=os.listdir(ext_path)
+    for file in filelist_de:
+        os.remove(ext_path+file)
 
 
 
-with ZipFile(download_path+zip_name, 'r') as zip: 
-    # printing all the contents of the zip file 
-    zip.printdir() 
+    with ZipFile(download_path+zip_name, 'r') as zip: 
+        # printing all the contents of the zip file 
+        zip.printdir() 
 
-    # extracting all the files 
-    print('Extracting all the files now...') 
-    zip.extractall(ext_path) 
-    print('Done!') 
+        # extracting all the files 
+        print('Extracting all the files now...') 
+        zip.extractall(ext_path) 
+        print('Done!') 
     
 
 
@@ -83,11 +84,24 @@ for name in filelist1:
     with open(ext_path+name, 'r',encoding='UTF-8') as f:
         text = f.read()
     #convert 
-    text=text.replace('$$','$')
-    while '\n\n' in text:
-        text=text.replace('\n\n','\n')
+    text=text.replace('$$','$')# Change the math enviroment 
+    for i in range(6):
+        bullet_sign1='\n'+i*4*' '+'- '
+        if i==0: # Move all the bullet to left
+            bullet_sign2='\n'
+        else:
+            bullet_sign2='\n'+(i-1)*4*' '+'- '
+        text=text.replace(bullet_sign1,bullet_sign2)
+
+    #while '\n\n' in text:
+    #    text=text.replace('\n\n','\n')
+    text=text.replace('- ![]','![]') # Remove the bullet symbol of picture 
     while ' \n' in text:
-        text=text.replace(' \n','\n')
+        text=text.replace(' \n','\n')# remove all the space before the enter
+    text=text.replace('[[','**')
+    text=text.replace(']]','**')
+    
+    
     #print(text)
 
     completename=os.path.join(save_path_md,name)
@@ -97,6 +111,14 @@ for name in filelist1:
 
 #    output = pypandoc.convert_file(completename, 'pdf','md', outputfile=convert_path_md+name[0:-3]+'.pdf')
 #    assert output == ""
+
+def findbracket(text,left_symbol='[[',right_symbol=']]'):
+    left_symbol_length=len(left_symbol)
+    right_symbol_length=len(right_symbol)
+    local1=text.find(left_symbol)
+    local2=A[local1+left_symbol_length-1].text.find(right_symbol)
+    symbol_extract=A[local1:local2+right_symbol_length]
+    A[local1:local2+right_symbol_length]=None
 
 
     

@@ -10,6 +10,8 @@ import os
 import os.path
 import json
 
+title=input()
+
 def init():
     global zot
     global alldata
@@ -231,7 +233,6 @@ class Roam_convert():
         
         
 
-title=input()
 
 
 
