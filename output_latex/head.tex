@@ -1,0 +1,54 @@
+﻿\documentclass[14pt]{article}
+\usepackage[utf8]{inputenc}
+
+% for Math input 
+\usepackage{amsthm,verbatim,amssymb,amsfonts,amscd}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{enumerate}
+\usepackage{mathtools}
+
+
+
+%For writing
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{color}
+
+%for bullet 
+\usepackage{outlines}
+
+
+% for citation 
+\usepackage[
+backend=biber,
+%citestyle=authoryear
+]{biblatex}
+\title{Note for Group meeting}
+\author{Yikun Bai}
+\date{\today}
+
+%\addbibresource{tools/references.bib}
+\bibliography{tools/references.bib}
+%Define new theorem
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}{Definition}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\addbibresource{references.bib}
+\begin{document}
+\maketitle
+\cite{rigollet2018entropic}
+\emph{I'm oK}.\\
+Yes. I'm good. 
+www
+
+%document_end
+%\bibliographystyle{unsrt}
+%\bibliography{references} 
+
+
+\printbibliography
+
+\end{document}
